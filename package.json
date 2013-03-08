@@ -9,8 +9,8 @@
       , "npm": ">= 1.1.x"
     }
   , "dependencies": {
-      "grunt": "*"
-    , "grunt-contrib": ">=0.1.0"
+      "grunt": "0.3.x"
+    , "grunt-contrib": "0.1.x"
     , "requirejs": "2.0.6"
     , "express": ">= 3.0.x"
     , "stylus": ">= 0.24.0"
