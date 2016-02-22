@@ -113,14 +113,16 @@ function(Backbone, ns, _, $, i18n) {
                       , key = parentKey;
 
                     if (key.length > 0) {
-                        key = key + ' .' + m;
+                        // Key later becomes Model.id and therefore affects how keys are saved
+                        // So use keyseparator here
+                        key = key + ' ' + defaults.keyseparator + m;
                     } else {
                         key = m;
                     }
 
                     if (typeof value === 'string') {
                         kv = { 
-                            id: key.replace(new RegExp(' ', 'g'), ''),
+                            id: key.replace(new RegExp('\\b ', 'g'), ''),
                             lng: lng,
                             ns: ns,
                             key: key,
@@ -133,7 +135,7 @@ function(Backbone, ns, _, $, i18n) {
                         appendTo.push(kv);
                     } else if (Object.prototype.toString.apply(value) === '[object Array]') {
                         kv = { 
-                            id: key.replace(new RegExp(' ', 'g'), ''),
+                            id: key.replace(new RegExp('\\b ', 'g'), ''),
                             lng: lng,
                             ns: ns,
                             key: key,
@@ -221,7 +223,7 @@ function(Backbone, ns, _, $, i18n) {
                     i18n.functions.log('posted change key \'' + key + '\' to: ' + url);
 
                     // update resStore
-                    var keys = key.split('.');
+                    var keys = key.split(self.options.keyseparator);
                     var x = 0;
                     var val = self.resStore[lng][ns];
                     while (keys[x]) {
@@ -262,7 +264,8 @@ function(Backbone, ns, _, $, i18n) {
 
                         flat = self.flat[lng][ns].get(key);
                         if (!flat) {
-                            var k = key.split('.').join(' .');
+                            var k = key.split(self.options.keyseparator)
+                                       .join(' ' + self.options.keyseparator);
                             self.flat[lng][ns].push({
                                 id: key,
                                 key: k,
@@ -308,7 +311,7 @@ function(Backbone, ns, _, $, i18n) {
                     i18n.functions.log('posted remove key \'' + key + '\' to: ' + url);
 
                     // update resStore
-                    var keys = key.split('.');
+                    var keys = key.split(self.options.keyseparator);
                     var x = 0;
                     var val = self.resStore[lng][ns];
                     while (keys[x]) {

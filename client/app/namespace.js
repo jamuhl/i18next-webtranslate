@@ -29,7 +29,7 @@ function($, _, backstrapp, Backbone, Handlebars, i18next) {
 
     Handlebars.registerHelper('parseKey', function(key) {
        if (!key) return '';
-       var result = key.replace(new RegExp(' ', 'g'), '<br />&nbsp;&nbsp;');
+       var result = key.replace(new RegExp('\\b ', 'g'), '<br />&nbsp;&nbsp;');
 
        return new Handlebars.SafeString(result);
     });

@@ -323,8 +323,13 @@ function(Backbone, ns, resSync, i18n) {
 
             var self = this;
 
-            var opts = {};
+            // test using the provided i18next options as a base
+            var opts = resSync.options || {};
+
+            // The default namespace to test is the current namespace
+            opts.ns = self.model.get('ns');
             
+            // replace default options with any provided in test window
             var args = self.$('.i18nOptions').val();
             if (args.length > 0) {
                 args = args.replace(new RegExp(' = ', 'g'), '=').split(/\n|\r/);
@@ -340,7 +345,7 @@ function(Backbone, ns, resSync, i18n) {
             }
 
             function test(t, o) {
-                self.$('.translated').html(t(self.model.get('ns') + ':' + self.model.id, o));
+                self.$('.translated').html(t(self.model.id, o));
             }
 
             if (!resSync.i18nDirty) {
@@ -373,10 +378,12 @@ function(Backbone, ns, resSync, i18n) {
         prepareI18n: function(cb) {
             var self= this;
 
-            i18n.init({
+            var options = _.extend(resSync.options, {
                 resStore: resSync.resStore,
                 lng: this.model.get('lng')
-            }, function(t) {
+            });
+
+            i18n.init(options, function(t) {
                 resSync.i18nDirty = true;
                 cb(t);
             });
