@@ -145,6 +145,41 @@ function($, _) {
                     }
                 }
             }
+        },
+        
+        nl: {
+            translation: {
+                layout: {
+                    header: {
+                        language: 'nederlands'
+                    }
+                },
+                editor: {
+                    choose: 'selecteer',
+                    addKey: 'voeg sleutel toe',
+                    add: 'invoegen',
+                    'delete': 'verwijder',
+                    edit: 'bewerk',
+                    cancel: 'annuleren',
+                    save: 'opslaan',
+                    test: 'test',
+                    filterKeys: 'filter sleutels',
+                    filterValue: 'filter waarde',
+                    compare: 'vergelijk met',
+                    download: 'download',
+                    th: {
+                        key: 'sleutel',
+                        specificValue: 'specifieke waarde',
+                        displayedValue: 'weergegeven waarde',
+                        compareValue: 'vergelijk waarde'
+                    },
+                    resourceItem: {
+                        compare: 'vergelijk',
+                        options: 'opties',
+                        optionsDesc: 'een optie per regel, bijv. count=0'
+                    }
+                }
+            }
         }
 
     };
